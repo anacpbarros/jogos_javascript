@@ -20,6 +20,15 @@ function criarCobrinha(){
     }
 }
 
+document.addEventListener('keydown', update); //keydown recebe comando do teclado e vai chamar a função update
+
+function update(event){
+    if(event.keyCode == 37 && direction != "right") directon = "left"; //pode-se escrever o if simples assim
+    if(event.keyCode == 38 && direction != "down") directon = "up";
+    if(event.keyCode == 39 && direction != "left") directon = "right";
+    if(event.keyCode == 40 && direction != "up") directon = "down";
+}
+
 function iniciarJogo() {
     criarBG(); // criar background
     criarCobrinha();
