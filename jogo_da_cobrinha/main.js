@@ -7,26 +7,59 @@ snake[0] = {
     y: 8 * box
 }
 let direction = "right";
+
 let comida = {
     x: Math.floor(Math.random() * 15 + 1) * box, //metodo floor tira o ponto flutuante
     y: Math.floor(Math.random() * 15 + 1) * box
 }
+let msg_alerta = '<div class="alert-box">' +
+'<p> <img src="img/cobra.jpg" Game Over </p>' +
+'<input style="padding:5px 10px;" type="button" value="OK" onclick="iniciarJogo();">' +
+'</div>';
 
 function criarBG() {
-    context.fillStyle = "purple";
+    context.fillStyle = "#087103";
     context.fillRect(0, 0, 16 * box, 16 * box); // (x, y, heigth, width)
 }
 
+/*function criarCabeca(){
+    context.beginPath();
+    var cabeca = new Image();
+    cabeca.src = 'img/cabeca.png';
+
+    cabeca.onload = function() {
+        var pattern = context.createPattern(cabeca);
+        context.fillStyle = pattern;
+        context.drawImage(snake[0].x, snake[0].y, box, box);
+    } 
+} */ 
+
 function criarCobrinha(){
-    for (i = 0; i < snake.length; i++){
-        context.fillStyle = "rgb(230, 125, 230)";
-        context.fillRect(snake[i].x, snake[i].y, box, box);
+    for (i = 1; i < snake.length; i++){
+    var cabeca = new Image();
+    cabeca.src = 'img/cabeca.png';
+    
+    cabeca.onload = function() {
+        var pattern = context.createPattern(cabeca);
+        context.fillStyle = pattern;
+        context.drawImage(snake[0].x, snake[0].y, box, box);
+    } 
+
+    
+        context.fillStyle = "#25EE1A";
+        context.fillRect(snake[i].x, snake[i].y, box - 1, box - 1);
     }
 }
 
 function comidaCobrinha(){
-    context.fillStyle = "red"
-    context.fillRect(comida.x, comida.y, box, box);
+    var maca = new Image();
+    maca.src = 'img/maca.png';
+    
+    maca.onload = function() {
+        var ptrn = context.createPattern(maca, 'repeat');
+        context.fillStyle = ptrn;
+        context.drawImage(maca, comida.x, comida.y, box, box); //utilizei drawImage ao inves de fillRect
+    }
 }
 
 document.addEventListener('keydown', update); //keydown recebe comando do teclado e vai chamar a função update
@@ -47,7 +80,8 @@ function iniciarJogo() {
     for (i = 1; i <snake.length; i++){
         if (snake[0].x == snake[i].x && snake[0].y == snake[i].y){
             clearInterval(jogo);
-            alert('Game Over :(');
+            //alert('Game Over :(');
+        document.write(msg_alerta);
         }
     }
 
